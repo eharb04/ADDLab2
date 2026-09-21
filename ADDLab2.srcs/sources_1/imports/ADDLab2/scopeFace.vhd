@@ -31,6 +31,7 @@ architecture Behavioral of scopeFace is
     -- cordinate.  These act like Feature Booleans which you will use in the process(clk) to set the 
     -- correct RGB for this pixel location. Finish and add more.
     signal borderH, borderV : STD_LOGIC;
+    
 
 
 
@@ -67,8 +68,20 @@ begin
     end process;
 
 
-    borderH <=	'1' when <lots of stuff> else '0';
-    borderV <=	'1' when <lots of stuff> else '0';
+    borderH <=	'1' when ((pixelHorz > L_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelHorz < R_EDGE + BORDER_LINE_WIDTH)) and --Horizontal bounds
+                         (((pixelVert < B_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelVert > B_EDGE + BORDER_LINE_WIDTH)) or --Bottom border
+                         ((pixelVert < T_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelVert > T_EDGE + BORDER_LINE_WIDTH))) --Top border
+                         else '0';
+    borderV <=	'1' when ((pixelVert > T_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelVert < B_EDGE + BORDER_LINE_WIDTH)) and --Horizontal bounds
+                         (((pixelHorz < L_EDGE + BORDER_LINE_WIDTH) and
+                         (pixelHorz > L_EDGE - BORDER_LINE_WIDTH)) or --Bottom border
+                         ((pixelHorz < R_EDGE + BORDER_LINE_WIDTH) and
+                         (pixelHorz > R_EDGE - BORDER_LINE_WIDTH))) --Top border
+                         else '0';
   
 
 end Behavioral;
