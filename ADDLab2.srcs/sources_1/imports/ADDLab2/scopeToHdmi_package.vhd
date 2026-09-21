@@ -105,10 +105,10 @@ component scopeFace is
     PORT (  
         clk         : in STD_LOGIC;
         resetn      : in STD_LOGIC;
-        pixelH      : in STD_LOGIC;
-        pixelV      : in STD_LOGIC;
-        triggerTime : in STD_LOGIC;
-        triggerVolt : in STD_LOGIC;
+        pixelHorz   : in STD_LOGIC_VECTOR(VIDEO_WIDTH_IN_BITS - 1 downto 0);
+        pixelVert   : in STD_LOGIC_VECTOR(VIDEO_WIDTH_IN_BITS - 1 downto 0);
+        triggerTime : in STD_LOGIC_VECTOR(VIDEO_WIDTH_IN_BITS - 1 downto 0);
+        triggerVolt : in STD_LOGIC_VECTOR(VIDEO_WIDTH_IN_BITS - 1 downto 0);
         ch1         : in STD_LOGIC;
         ch1enb      : in STD_LOGIC;
         ch2         : in STD_LOGIC;
@@ -156,8 +156,8 @@ component scopeToHdmi is
         sysClk      : in STD_LOGIC;
         resetn      : in STD_LOGIC;
         btn         : in STD_LOGIC_VECTOR(2 downto 0);
-        tmdsDataP   : out STD_LOGIC;
-        tmdsDataN   : out STD_LOGIC;
+        tmdsDataP   : out STD_LOGIC_VECTOR (2 downto 0);
+        tmdsDataN   : out STD_LOGIC_VECTOR (2 downto 0);
         tmdsClkP    : out STD_LOGIC;
         tmdsClkN    : out STD_LOGIC;
         hdmiOen     : out STD_LOGIC
