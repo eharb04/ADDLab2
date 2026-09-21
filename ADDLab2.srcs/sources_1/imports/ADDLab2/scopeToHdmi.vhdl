@@ -29,21 +29,57 @@ architecture structure of scopeToHdmi is
     signal ch1Wave, ch2Wave: STD_LOGIC;
 
     signal videoClk, videoClk5x, clkLocked: STD_LOGIC;
+    
+    signal hs, vs, de: STD_LOGIC; --Intermediate
 
 begin
 
 
     vsg: videoSignalGenerator
-        PORT MAP (clk => videoClk, <other stuff>	);
+        PORT MAP (clk => videoClk, 
+                  resetn => resetn,
+                  hs => hs,
+                  vs => vs,
+                  de => de,
+                  pixelHorz => pixelHorz,
+                  pixelVert => pixelVert);
                  
 
     sf: scopeFace
-        PORT MAP (clk => videoClk,	<other stuff>	);
+        PORT MAP (clk => videoClk,
+                  resetn => resetn,
+                  pixelHorz => pixelHorz,
+                  pixelVert => pixelVert,
+                  triggerVolt => triggerVolt,
+                  triggerTime => triggerTime,
+                  red => red,
+                  green => green,
+                  blue => blue,
+                  ch1 => ch1Wave,
+                  ch2 => ch1Wave);
                  
 
-    hdmi_inst: hdmi_0
+    hdmi_inst: hdmi_tx_0
         PORT MAP (
-            pix_clk => videoClk,	<other stuff>	);
+            pix_clk => videoClk,
+            pix_clkx5 => videoClk5x,
+            rst => not resetn,
+            hsync => hs,
+            vsync => vs,
+            vde => de,
+            pix_clk_locked => clkLocked,
+            red => red,
+            green => green,
+            blue => blue,
+            TMDS_DATA_P => tmdsDataP,
+            TMDS_DATA_N => tmdsDataN,
+            TMDS_CLK_P => tmdsClkP,
+            TMDS_CLK_N => tmdsClkN,
+            aux0_din => "0000",
+            aux1_din => "0000",
+            aux2_din => "0000",
+            ade => '0'
+            );
             
 
     vc: clk_wiz_0
@@ -60,7 +96,11 @@ begin
     -- increment/decrement the triggerTime or triggerVolt values
     ------------------------------------------------------------------------------
  
-
+    process(clk)
+    begin
+        
+    end process
+ 
     ch1Wave <= '1' when  (pixelHorz = pixelVert) else '0';
     ch2Wave <= '1' when  (pixelVert = triggerVolt) else '0';
 
