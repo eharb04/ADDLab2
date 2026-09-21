@@ -64,11 +64,11 @@ begin
                     red <= TRIGGER_R;
                     green <= TRIGGER_G;
                     blue <= TRIGGER_B;
-                elsif (ch1 = '1') then -- Channel 1 input, red
+                elsif (ch1 = '1' and ch1Enb = '1') then -- Channel 1 input, red
                     red <= CH1_R;
                     green <= CH1_G;
                     blue <= CH1_B;
-                elsif (ch2 = '1') then -- Channel 2 input, yellow
+                elsif (ch2 = '1' and ch2Enb = '1') then -- Channel 2 input, yellow
                     red <= CH2_R;
                     green <= CH2_G;
                     blue <= CH2_B;
