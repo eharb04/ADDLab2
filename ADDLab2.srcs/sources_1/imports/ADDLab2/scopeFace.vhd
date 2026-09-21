@@ -33,6 +33,9 @@ architecture Behavioral of scopeFace is
     signal borderH, borderV : STD_LOGIC;
     signal gridH, gridV : STD_LOGIC;
     signal triggerTimeMarker, triggerVoltMarker : STD_LOGIC;
+    signal hatchH, hatchV: STD_LOGIC;
+    signal triggerVoltLevel: STD_LOGIC;
+    
 
 
 
@@ -59,6 +62,14 @@ begin
                     red <= GRID_R;
                     green <= GRID_G;
                     blue <= GRID_B;
+                elsif ((hatchH = '1') or (hatchV = '1')) then --blue
+                    red <= GRID_R;
+                    green <= GRID_G;
+                    blue <= GRID_B;
+                elsif (triggerVoltLevel = '1') then --Green
+                    red <= TRIGGER_R;
+                    green <= TRIGGER_G;
+                    blue <= TRIGGER_B;
                 else
                     red <= X"00";
                     green <= X"00";
@@ -68,10 +79,21 @@ begin
         end if;
     end process;
 
-
-    borderH <=	'1' when  else '0';
-    borderV <=	'1' when (
-    gridH <= '1' when ((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and
+    borderH <=	'1' when ((pixelHorz > L_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelHorz < R_EDGE + BORDER_LINE_WIDTH)) and --Horizontal bounds
+                         (((pixelVert < B_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelVert > B_EDGE + BORDER_LINE_WIDTH)) or --Bottom border
+                         ((pixelVert < T_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelVert > T_EDGE + BORDER_LINE_WIDTH))) --Top border
+                         else '0';
+    borderV <=	'1' when ((pixelVert > T_EDGE - BORDER_LINE_WIDTH) and
+                         (pixelVert < B_EDGE + BORDER_LINE_WIDTH)) and --Horizontal bounds
+                         (((pixelHorz < L_EDGE + BORDER_LINE_WIDTH) and
+                         (pixelHorz > L_EDGE - BORDER_LINE_WIDTH)) or --Bottom border
+                         ((pixelHorz < R_EDGE + BORDER_LINE_WIDTH) and
+                         (pixelHorz > R_EDGE - BORDER_LINE_WIDTH))) --Top border
+                         else '0';
+    gridH <= '1' when (((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and
                     pixelHorz < R_EDGE - BORDER_LINE_WIDTH)) and
                     (pixelVert == T_EDGE + BORDER_LINE_WIDTH + 100 or
                     pixelVert == T_EDGE + BORDER_LINE_WIDTH + 200 or
@@ -81,10 +103,10 @@ begin
                     pixelVert == T_EDGE + BORDER_LINE_WIDTH + 600 or
                     pixelVert == T_EDGE + BORDER_LINE_WIDTH + 700 or
                     pixelVert == T_EDGE + BORDER_LINE_WIDTH + 800 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 900) else '0';
+                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 900)) else '0';
                     
         gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
-                    pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
+                    (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
                     (pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 100 or
                     pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 200 or
                     pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 300 or
@@ -102,18 +124,128 @@ begin
                                 (((pixelVert == T_EDGE + BORDER_LINE_WIDTH + 1) or
                                 (pixelVert == T_EDGE + BORDER_LINE_WIDTH + 1)) and
                                 (pixelHorz > triggerTimer - 5 and
-                                pixelHorz < triggerTimer + 5)) or
+                                pixelHorz < triggerTimer + 5)) else'0';
                                 
                                 
                                 
-                                else'0';
-                                
-                                
-                                
-                    
-       
-                    
-
+             
+    
+    triggerVoltLevel <= '1' when (pixelVert = triggerVolt) and --Height of level
+                                 ((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and --Stay within horizontal frame
+                                 (pixelHorz < R_EDGE - BORDER_LINE_WIDTH))
+                                 else '0';                         
+                         
+                        
+    hatchH <=	'1' when (
+						(pixelVert > T_EDGE + BORDER_LINE_WIDTH + 295) and --Upper and lower bounds
+						(pixelVert < T_EDGE + BORDER_LINE_WIDTH + 305)
+						) and (
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 20) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 40) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 60) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 80) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 120) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 140) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 160) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 180) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 220) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 240) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 260) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 280) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 320) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 340) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 360) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 380) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 420) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 440) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 460) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 480) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 520) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 540) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 560) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 580) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 620) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 640) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 660) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 680) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 720) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 740) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 760) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 780) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 820) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 840) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 860) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 880) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 920) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 940) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 960) or
+						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 980) --Each individual hatch
+						)
+						 else '0';
+    hatchV <=	'1' when (
+						(pixelHorz > L_EDGE + BORDER_LINE_WIDTH + 495) and --Left and right bounds
+						(pixelHorz < L_EDGE + BORDER_LINE_WIDTH + 505)
+						) and (
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 12) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 24) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 36) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 48) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 60) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 72) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 84) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 96) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 108) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 120) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 132) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 144) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 156) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 168) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 180) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 192) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 204) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 216) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 228) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 240) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 252) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 264) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 276) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 288) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 300) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 312) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 324) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 336) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 348) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 360) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 372) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 384) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 396) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 408) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 420) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 432) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 444) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 456) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 468) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 480) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 492) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 504) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 516) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 528) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 540) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 552) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 564) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 576) or
+						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 588) --Each individual hatch
+						)
+						 else '0';
 
 end Behavioral;
 
