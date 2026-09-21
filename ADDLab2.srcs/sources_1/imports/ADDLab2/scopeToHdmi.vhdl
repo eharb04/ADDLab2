@@ -48,7 +48,7 @@ begin
     sf: scopeFace
         PORT MAP (clk => videoClk,
                   resetn => resetn,
-                  pixelHorz => pixelHorz,
+                  pixelH => pixelHorz,
                   pixelVert => pixelVert,
                   triggerVolt => triggerVolt,
                   triggerTime => triggerTime,
