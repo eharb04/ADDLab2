@@ -95,40 +95,71 @@ begin
                          else '0';
     gridH <= '1' when (((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and
                     pixelHorz < R_EDGE - BORDER_LINE_WIDTH)) and
-                    (pixelVert == T_EDGE + BORDER_LINE_WIDTH + 100 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 200 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 300 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 400 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 500 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 600 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 700 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 800 or
-                    pixelVert == T_EDGE + BORDER_LINE_WIDTH + 900)) else '0';
+                    (pixelVert = T_EDGE + BORDER_LINE_WIDTH + 100 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 200 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 300 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 400 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 500 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 600 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 700 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 800 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 900) else '0';
                     
         gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
                     (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
-                    (pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 100 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 200 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 300 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 400 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 500 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 600 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 700 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 800 or
-                    pixelHorz == L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
+                    (pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
                     
-        triggerTimeMarker <= '1' when (((pixelVert == T_EDGE + BORDER_LINE_WIDTH + 1) or
-                                (pixelVert == T_EDGE + BORDER_LINE_WIDTH + 2)) and
-                                (pixelHorz > triggerTimer - 5 and
-                                pixelHorz < triggerTimer + 5)) or
-                                (((pixelVert == T_EDGE + BORDER_LINE_WIDTH + 1) or
-                                (pixelVert == T_EDGE + BORDER_LINE_WIDTH + 1)) and
-                                (pixelHorz > triggerTimer - 5 and
-                                pixelHorz < triggerTimer + 5)) else'0';
-                                
-                                
-                                
-             
+triggerTimeMarker <= '1' when (
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 1) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 2) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 3) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 4) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 5) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 6) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 7) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 8) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 9) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 10)) and
+				pixelHorz = triggerTime)) else '0';
+				
+triggerVoltMarker <= '1' when (
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 1) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 2) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 3) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 4) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 5) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 6) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 7) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 8) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 9) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 10)) and
+				pixelVert = triggerVolt)) else '0';
+
+
     
     triggerVoltLevel <= '1' when (pixelVert = triggerVolt) and --Height of level
                                  ((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and --Stay within horizontal frame
