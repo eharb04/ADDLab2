@@ -21,6 +21,10 @@ def hatchV(f):
   print(f"\t\t\t\t\t\t(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 588) --Each individual hatch", file=f)
   print(f"\t\t\t\t\t\t)", file=f)
   print(f"\t\t\t\t\t\t else '0';", file=f)
+  
+def gridH(f):
+
+def gridV(f):
 
 def triggerTime(f):
   print("triggerTimeMarker <= '1' when (", file = f)
@@ -51,3 +55,7 @@ if __name__ == "__main__":
     with open("trigger.txt", "w") as t:
        triggerTime(t)
        triggerVolt(t)
+
+    with open("grid.txt", "w") as f:
+        gridH(f)
+        gridV(f)

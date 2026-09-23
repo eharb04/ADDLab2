@@ -54,16 +54,52 @@ begin
     end process;
 
     -- 2: Assert the horziontal synch signal
-
+    process(clk)
+    begin
+        if rising_edge (clk) then
+            if resetn = '0' then --hsync
+                hs <= '1';
+            -- Doesn't rely on vsync like vsync relies on hsync
+            elsif (h_cnt = H_FP - 1) then --start of hsync
+                hs <= '0';
+            elsif (h_cnt = H_FP + H_SYNC - 1) then --end of hsync
+                hs <= '1';            
+            end if;
+        end if;
+    end process;
 
 
     -- 3: Generate the pixelHorz signal that is used by
     -- the scopeFace and other components to know which pixel on 
     -- the screen is being drawn.
+    process(clk)
+    begin
+        if rising_edge (clk) then
+            if resetn = '0' then
+                pixelHorz <= (others => '0');
+            elsif(h_cnt >= H_FP + H_SYNC + H_BP - 1) then
+                pixelVert <= h_cnt - (H_FP + H_SYNC + H_BP - 1);
+            end if;
+        end if;
+    end process;
 
 
     -- 4. assert the h_activeArea signal.  This boolean is true when we are drawing pixels
-
+    -- Not dependent on v_cnt like v_activeArea is reliant on h_cnt
+    process(clk)
+    begin
+        if rising_edge (clk) then
+            if resetn = '0' then
+                h_activeArea <= '0';
+            elsif (h_cnt = H_FP + H_SYNC + H_BP - 1) then -- Left bound, turn on
+                h_activeArea <= '1';
+            elsif (h_cnt = H_TOTAL - 1) then -- Right bound, turn off
+                h_activeArea <= '0';
+            else -- Maintain value
+                h_activeArea <= h_activeArea;
+            end if;
+        end if;
+    end process;
 
 
     -- 1: Increment the vertical count across the video screen
