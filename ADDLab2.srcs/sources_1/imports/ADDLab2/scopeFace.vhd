@@ -31,6 +31,8 @@ architecture Behavioral of scopeFace is
     -- cordinate.  These act like Feature Booleans which you will use in the process(clk) to set the 
     -- correct RGB for this pixel location. Finish and add more.
     signal borderH, borderV : STD_LOGIC;
+    signal gridH, gridV : STD_LOGIC;
+    signal triggerTimeMarker, triggerVoltMarker : STD_LOGIC;
     signal hatchH, hatchV: STD_LOGIC;
     signal triggerVoltLevel: STD_LOGIC;
     
@@ -56,6 +58,10 @@ begin
                     red <= BORDER_R;
                     green <= BORDER_G;
                     blue <= BORDER_B;
+                elsif ((gridV = '1') or (gridH = '1')) then
+                    red <= GRID_R;
+                    green <= GRID_G;
+                    blue <= GRID_B;
                 elsif ((hatchH = '1') or (hatchV = '1')) then --blue
                     red <= GRID_R;
                     green <= GRID_G;
@@ -82,7 +88,6 @@ begin
         end if;
     end process;
 
-
     borderH <=	'1' when ((pixelHorz > L_EDGE - BORDER_LINE_WIDTH) and
                          (pixelHorz < R_EDGE + BORDER_LINE_WIDTH)) and --Horizontal bounds
                          (((pixelVert < B_EDGE - BORDER_LINE_WIDTH) and
@@ -97,6 +102,74 @@ begin
                          ((pixelHorz < R_EDGE + BORDER_LINE_WIDTH) and
                          (pixelHorz > R_EDGE - BORDER_LINE_WIDTH))) --Top border
                          else '0';
+    gridH <= '1' when (((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and
+                    pixelHorz < R_EDGE - BORDER_LINE_WIDTH)) and
+                    (pixelVert = T_EDGE + BORDER_LINE_WIDTH + 100 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 200 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 300 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 400 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 500 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 600 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 700 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 800 or
+                    pixelVert = T_EDGE + BORDER_LINE_WIDTH + 900) else '0';
+                    
+        gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
+                    (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
+                    (pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800 or
+                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
+                    
+triggerTimeMarker <= '1' when (
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 1) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 2) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 3) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 4) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 5) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 6) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 7) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 8) ) and
+				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))) and
+				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 9) or
+				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 10)) and
+				pixelHorz = triggerTime)) else '0';
+				
+triggerVoltMarker <= '1' when (
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 1) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 2) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 3) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 4) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 5) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 6) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 7) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 8) ) and
+				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))) and
+				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))))) or 
+				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 9) or
+				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 10)) and
+				pixelVert = triggerVolt)) else '0';
+
+
+    
     triggerVoltLevel <= '1' when (pixelVert = triggerVolt) and --Height of level
                                  ((pixelHorz > L_EDGE + BORDER_LINE_WIDTH) and --Stay within horizontal frame
                                  (pixelHorz < R_EDGE - BORDER_LINE_WIDTH))
@@ -212,7 +285,7 @@ begin
 						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 576) or
 						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 588) --Each individual hatch
 						)
-						 else '0';  
+						 else '0';
 
 end Behavioral;
 
