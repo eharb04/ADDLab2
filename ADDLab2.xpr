@@ -4,7 +4,7 @@
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.                   -->
 <!-- Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.   -->
 
-<Project Product="Vivado" Version="7" Minor="72" Path="C:/Users/ethan/Desktop/ADD/Labs/ADDLab2/ADDLab2.xpr">
+<Project Product="Vivado" Version="7" Minor="72" Path="C:/Users/harba/Classes/DigitalDesign/lab_2/ADDLab2.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="c137e35300db44d69a511780d7ae7073"/>
@@ -91,10 +91,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/scopeFace.vhd">
+      <File Path="$PPRDIR/scopeFace.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/scopeFace.vhd"/>
-          <Attr Name="ImportTime" Val="1789760200"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -111,6 +109,15 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/scopeFace.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/scopeFace.vhd"/>
+          <Attr Name="ImportTime" Val="1789760200"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/basicBuildingBlocksVhdl_package.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -120,7 +127,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/scopeFace.vhd">
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/decoder3x8.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/decoder3x8.vhd"/>
@@ -129,7 +136,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/videoSignalGenerator.vhdl">
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/genericMux8x1.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/genericMux8x1.vhd"/>
@@ -138,7 +145,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/scopeToHdmi.vhdl">
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/genericRegister.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/genericRegister.vhd"/>
@@ -147,7 +154,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/basicBuildingBlocksVhdl_package.vhd">
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/regFile8x16.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/regFile8x16.vhd"/>
@@ -222,33 +229,26 @@
       <File Path="$PSRCDIR/sources_1/imports/ADDLab2/scopeToHdmi.vhdl">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/genericMux8x1.vhd"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/scopeToHdmi.vhdl"/>
           <Attr Name="ImportTime" Val="1789760200"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/genericRegister.vhd">
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/scopeToHdmi_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/genericRegister.vhd"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/scopeToHdmi_tb.vhd"/>
           <Attr Name="ImportTime" Val="1789760200"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/basicBuildingBlocksVhdl/regFile8x16.vhd">
+      <File Path="$PSRCDIR/sources_1/imports/ADDLab2/videoSignalGenerator.vhdl">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/basicBuildingBlocksVhdl/regFile8x16.vhd"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/videoSignalGenerator.vhdl"/>
           <Attr Name="ImportTime" Val="1789760200"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/scopeFace.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>

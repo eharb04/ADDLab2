@@ -113,17 +113,17 @@ begin
                 triggerVolt <= STD_LOGIC_VECTOR(TO_UNSIGNED(300, VIDEO_WIDTH_IN_BITS)); 
             elsif activeButton > 0 then --Something has changed state
                 if (activeButton(0) = '1' and currButton(0) = '1') then --PL_KEY4 changed to being released
-                    if (currButton(2) = '1') then --PL_KEY2 is not being pressed
+                    if (currButton(2) = '1' and triggerTime > 0) then --PL_KEY2 is not being pressed
                         triggerTime <= triggerTime - 10;
-                    elsif (currButton(2) = '0') then --PL_KEY2 is being pressed
+                    elsif (currButton(2) = '0' and triggerTime < 1279) then --PL_KEY2 is being pressed
                         triggerTime <= triggerTime + 10;
                     end if;
                 end if;
                 
                 if (activeButton(1) = '1' and currButton(1) = '1') then --PL_KEY3 changed to being released
-                    if (currButton(2) = '1') then --PL_KEY2 is not being pressed
+                    if (currButton(2) = '1' and triggerVolt > 0) then --PL_KEY2 is not being pressed
                         triggerVolt <= triggerVolt - 10;
-                    elsif (currButton(2) = '0') then --PL_KEY2 is being pressed
+                    elsif (currButton(2) = '0' and triggerVolt < 719) then --PL_KEY2 is being pressed
                         triggerVolt <= triggerVolt + 10;
                     end if;
                 end if;
@@ -133,7 +133,7 @@ begin
     end process;
  
     reset <= not resetn;
-    ch1Wave <= '1' when  (pixelHorz = pixelVert) and (pixelHorz /= x"00") else '0';
+    ch1Wave <= '1' when  (pixelHorz = pixelVert) else '0';
     ch2Wave <= '1' when  (pixelVert = triggerVolt) else '0';
     hdmiOen <= '1';
 
