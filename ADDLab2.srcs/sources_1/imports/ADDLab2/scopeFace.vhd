@@ -114,17 +114,17 @@ begin
                     pixelVert = T_EDGE + BORDER_LINE_WIDTH + 800 or
                     pixelVert = T_EDGE + BORDER_LINE_WIDTH + 900) else '0';
                     
-        gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
-                    (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
-                    (pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
+    gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
+                (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
+                (pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
                     
 triggerTimeMarker <= '1' when (
 				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 1) or
