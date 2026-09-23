@@ -78,7 +78,10 @@ begin
                     red <= CH2_R;
                     green <= CH2_G;
                     blue <= CH2_B;
-              
+                elsif (triggerTimeMarker = '1' or triggerVoltMarker = '1') then
+                    red <= BORDER_R;
+                    green <= BORDER_G;
+                    blue <= BORDER_B;
                 else
                     red <= X"00";
                     green <= X"00";
