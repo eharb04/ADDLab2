@@ -117,58 +117,57 @@ begin
                     pixelVert = T_EDGE + BORDER_LINE_WIDTH + 800 or
                     pixelVert = T_EDGE + BORDER_LINE_WIDTH + 900) else '0';
                     
-        gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
-                    (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
-                    (pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800 or
-                    pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
+    gridV <= '1' when ((pixelVert > T_EDGE + BORDER_LINE_WIDTH) and
+                (pixelVert < B_EDGE - BORDER_LINE_WIDTH)) and
+                (pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 100 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 200 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 300 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 400 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 500 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 600 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 700 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 800 or
+                pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 900) else '0';
                     
 triggerTimeMarker <= '1' when (
-				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 1) or
-				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 2) ) and
+				((pixelVert = (T_EDGE + 1) or
+				pixelVert = (T_EDGE + 2) ) and
 				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))) and
 				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 3) or
-				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 4) ) and
+				((pixelVert = (T_EDGE + 3) or
+				pixelVert = (T_EDGE + 4) ) and
 				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))) and
 				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 5) or
-				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 6) ) and
+				((pixelVert = (T_EDGE + 5) or
+				pixelVert = (T_EDGE + 6) ) and
 				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))) and
 				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 7) or
-				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 8) ) and
+				((pixelVert = (T_EDGE + 7) or
+				pixelVert = (T_EDGE + 8) ) and
 				(pixelHorz > (triggerTime - std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))) and
 				pixelHorz < (triggerTime + std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 9) or
-				pixelVert = (T_EDGE + BORDER_LINE_WIDTH + 10)) and
+				((pixelVert = (T_EDGE + 9) or
+				pixelVert = (T_EDGE + 10)) and
 				pixelHorz = triggerTime)) else '0';
-				
 triggerVoltMarker <= '1' when (
-				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 1) or
-				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 2) ) and
+				((pixelHorz = (L_EDGE + 1) or
+				pixelHorz = (L_EDGE + 2) ) and
 				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))) and
 				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(5, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 3) or
-				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 4) ) and
+				((pixelHorz = (L_EDGE + 3) or
+				pixelHorz = (L_EDGE + 4) ) and
 				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))) and
 				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(4, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 5) or
-				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 6) ) and
+				((pixelHorz = (L_EDGE + 5) or
+				pixelHorz = (L_EDGE + 6) ) and
 				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))) and
 				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(3, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 7) or
-				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 8) ) and
+				((pixelHorz = (L_EDGE + 7) or
+				pixelHorz = (L_EDGE + 8) ) and
 				(pixelVert > (triggerVolt - std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))) and
 				pixelVert < (triggerVolt + std_logic_vector(to_unsigned(2, VIDEO_WIDTH_IN_BITS))))) or 
-				((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 9) or
-				pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + 10)) and
+				((pixelHorz = (L_EDGE +9) or
+				pixelHorz = (L_EDGE +10)) and
 				pixelVert = triggerVolt)) else '0';
 
 
@@ -179,7 +178,7 @@ triggerVoltMarker <= '1' when (
                                  else '0';                         
                          
                         
-    hatchH <=	'1' when (
+hatchH <=	'1' when (
 						(pixelVert > T_EDGE + BORDER_LINE_WIDTH + 295) and --Upper and lower bounds
 						(pixelVert < T_EDGE + BORDER_LINE_WIDTH + 305)
 						) and (
@@ -234,7 +233,7 @@ triggerVoltMarker <= '1' when (
 						(pixelHorz = L_EDGE + BORDER_LINE_WIDTH + 980) --Each individual hatch
 						)
 						 else '0';
-    hatchV <=	'1' when (
+hatchV <=	'1' when (
 						(pixelHorz > L_EDGE + BORDER_LINE_WIDTH + 495) and --Left and right bounds
 						(pixelHorz < L_EDGE + BORDER_LINE_WIDTH + 505)
 						) and (
@@ -266,26 +265,6 @@ triggerVoltMarker <= '1' when (
 						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 312) or
 						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 324) or
 						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 336) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 348) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 360) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 372) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 384) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 396) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 408) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 420) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 432) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 444) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 456) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 468) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 480) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 492) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 504) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 516) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 528) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 540) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 552) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 564) or
-						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 576) or
 						(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 588) --Each individual hatch
 						)
 						 else '0';
