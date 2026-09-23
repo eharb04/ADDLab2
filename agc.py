@@ -16,7 +16,7 @@ def hatchV(f):
   print(f"\t\t\t\t\t\t(pixelHorz > L_EDGE + BORDER_LINE_WIDTH + 495) and --Left and right bounds", file=f)
   print(f"\t\t\t\t\t\t(pixelHorz < L_EDGE + BORDER_LINE_WIDTH + 505)", file=f)
   print(f"\t\t\t\t\t\t) and (", file=f)
-  for i in range(1, 49):
+  for i in range(1, 29):
     print(f"\t\t\t\t\t\t(pixelVert = T_EDGE + BORDER_LINE_WIDTH + {12 * i}) or", file=f)
   print(f"\t\t\t\t\t\t(pixelVert = T_EDGE + BORDER_LINE_WIDTH + 588) --Each individual hatch", file=f)
   print(f"\t\t\t\t\t\t)", file=f)
@@ -39,23 +39,23 @@ def gridV(f):
 def triggerTime(f):
   print("triggerTimeMarker <= '1' when (", file = f)
   for i in range(1,5):
-    print(f"\t\t\t\t((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + {2*i-1}) or",file=f)
-    print(f"\t\t\t\tpixelVert = (T_EDGE + BORDER_LINE_WIDTH + {2*i}) ) and",file=f)
+    print(f"\t\t\t\t((pixelVert = (T_EDGE + {2*i-1}) or",file=f)
+    print(f"\t\t\t\tpixelVert = (T_EDGE + {2*i}) ) and",file=f)
     print(f"\t\t\t\t(pixelHorz > (triggerTime - std_logic_vector(to_unsigned({6-i}, VIDEO_WIDTH_IN_BITS))) and",file = f)
     print(f"\t\t\t\tpixelHorz < (triggerTime + std_logic_vector(to_unsigned({6-i}, VIDEO_WIDTH_IN_BITS))))) or ", file=f)
-  print(f"\t\t\t\t((pixelVert = (T_EDGE + BORDER_LINE_WIDTH + {2*i+1}) or",file=f)
-  print(f"\t\t\t\tpixelVert = (T_EDGE + BORDER_LINE_WIDTH + {2*(i+1)})) and",file=f)
+  print(f"\t\t\t\t((pixelVert = (T_EDGE + {2*i+1}) or",file=f)
+  print(f"\t\t\t\tpixelVert = (T_EDGE + {2*(i+1)})) and",file=f)
   print(f"\t\t\t\tpixelHorz = triggerTime)) else '0';",file = f)
 
 def triggerVolt(f):
   print("triggerVoltMarker <= '1' when (", file = f)
   for i in range(1,5):
-    print(f"\t\t\t\t((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + {2*i-1}) or",file=f)
-    print(f"\t\t\t\tpixelHorz = (L_EDGE + BORDER_LINE_WIDTH + {2*i}) ) and",file=f)
+    print(f"\t\t\t\t((pixelHorz = (L_EDGE + {2*i-1}) or",file=f)
+    print(f"\t\t\t\tpixelHorz = (L_EDGE + {2*i}) ) and",file=f)
     print(f"\t\t\t\t(pixelVert > (triggerVolt - std_logic_vector(to_unsigned({6-i}, VIDEO_WIDTH_IN_BITS))) and",file = f)
     print(f"\t\t\t\tpixelVert < (triggerVolt + std_logic_vector(to_unsigned({6-i}, VIDEO_WIDTH_IN_BITS))))) or ", file=f)
-  print(f"\t\t\t\t((pixelHorz = (L_EDGE + BORDER_LINE_WIDTH + {2*i+1}) or",file=f)
-  print(f"\t\t\t\tpixelHorz = (L_EDGE + BORDER_LINE_WIDTH + {2*(i+1)})) and",file=f)
+  print(f"\t\t\t\t((pixelHorz = (L_EDGE +{2*i+1}) or",file=f)
+  print(f"\t\t\t\tpixelHorz = (L_EDGE +{2*(i+1)})) and",file=f)
   print(f"\t\t\t\tpixelVert = triggerVolt)) else '0';",file = f)
                       
 if __name__ == "__main__":

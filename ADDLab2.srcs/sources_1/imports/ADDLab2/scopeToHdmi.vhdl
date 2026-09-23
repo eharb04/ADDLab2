@@ -133,7 +133,7 @@ begin
     end process;
  
     reset <= not resetn;
-    ch1Wave <= '1' when  (pixelHorz = pixelVert) else '0';
+    ch1Wave <= '1' when  (pixelHorz = pixelVert) and (pixelHorz /= x"00") else '0';
     ch2Wave <= '1' when  (pixelVert = triggerVolt) else '0';
     hdmiOen <= '1';
 
